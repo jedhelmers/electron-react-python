@@ -1,0 +1,121 @@
+$justifies: 'space-between', 'space-around', 'center', 'flex-start', 'flex-end';
+$justifiesBrev: 'sb', 'sa', 'c', 'fs', 'fe';
+$flexDirections: 'row', 'column';
+$styles: 'primary', 'secondary', 'error', 'warning', 'success', 'white', 'black';
+$directions: 'left', 'right', 'top', 'bottom';
+
+@each $direction in $directions {
+  @each $style in $styles {
+    .border-#{str-slice($direction, 0, 1)}-#{$style} {
+        border-#{$direction}: 1px solid var(--#{$style});
+        overflow: hidden;
+    }
+  }
+}
+
+.border {
+    border: 1px solid var(--gray);
+    overflow: hidden;
+}
+
+@each $style in $styles {
+    .border-#{$style} {
+        border: 1px solid var(--#{$style});
+    }
+}
+
+@each $style in $styles {
+    .bg-#{$style} {
+        background: var(--#{$style});
+        opacity: 0.5;
+    }
+}
+
+@each $style in $styles {
+    .txt-#{$style} {
+        color: var(--#{$style});
+        opacity: 0.78;
+    }
+}
+
+@for $i from 1 to 6 {
+    .thickness-#{$i} {
+        border-width: #{$i}px !important;
+    }
+}
+
+@for $i from 0 through 30 {
+    .r-#{$i} {
+        border-radius: #{$i}px;
+    }
+}
+
+@for $i from 1 through 5 {
+    $cols : '';
+    @for $j from 1 through $i {
+        $cols : $cols + ' 1fr';
+    }
+    .g-#{$i}fr {
+        display: grid;
+        grid-template-columns: unquote($cols);
+    }
+
+    $cols : '';
+    @for $j from 1 through $i {
+        $cols : $cols + ' auto';
+    }
+    .g-#{$i}a {
+        display: grid;
+        grid-template-columns: unquote($cols);
+    }
+}
+
+@for $i from 0 to 11 {
+  .gap-c-#{$i * 2} {
+    grid-column-gap: #{$i * 2}px;
+  }
+
+  .gap-r-#{$i * 2} {
+    grid-row-gap: #{$i * 2}px;
+  }
+
+  .gap-#{$i * 2} {
+    grid-gap: #{$i * 2}px;
+  }
+}
+
+@each $direction in $flexDirections {
+    @each $justify in $justifies {
+        $i: index($justifies, $justify);
+        .f#{str-slice($direction, 0, 1)} {
+            $name : nth($justifiesBrev, $i);
+            &-#{$name} {
+                display: flex;
+                flex-direction: #{$direction};
+                justify-content: #{$justify};
+            }
+        }
+    }
+}
+
+@for $i from 0 through 30 {
+    .p-#{$i} {
+        padding: #{$i}px;
+    }
+
+    .m-#{$i} {
+        margin: #{$i}px;
+    }
+
+    @each $direction in $directions {
+        .p#{str-slice($direction, 0, 1)}-#{$i} {
+            padding-#{$direction}: #{$i}px;
+        }
+    }
+
+    @each $direction in $directions {
+        .m#{str-slice($direction, 0, 1)}-#{$i} {
+            margin-#{$direction}: #{$i}px;
+        }
+    }
+}
