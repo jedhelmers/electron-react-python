@@ -1,3 +1,5 @@
+const CopyPlugin = require("copy-webpack-plugin");
+
 var fs = require("fs-extra");
 console.log('SHIT')
 module.exports = {
@@ -10,7 +12,19 @@ module.exports = {
                 }
                 console.log('Copy completed!')
             });    
-        }
+        },
+        readPackageJson: async (forgeConfig, platform, arch) => {
+          console.log('\ngenerateAssets');
+          setTimeout(() => {
+            fs.copy('src/py', '.webpack/spy', function (err) {
+              if (err){
+                  console.log('An error occured while copying the folder.')
+                  return console.error(err)
+              }
+              console.log('Copy completed!')
+            });  
+          }, 1000)
+        },      
     },
     markers: [
         {

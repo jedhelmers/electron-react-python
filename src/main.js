@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const pyIntegration = require('./pythonIntegration.js')
+const { PythonShell } = require('python-shell')
+
 import {
   setTitle,
   pythonPrint
@@ -22,26 +24,38 @@ const createWindow = () => {
     y: 10,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-      nodeIntegration: true
+      nodeIntegration: true,
     },
   });
 
+
+  ipcMain.on('parse-json-object', (event, value) => {
+    let options = {
+      mode: 'text',
+      args: [value]
+    }
+
+    PythonShell.run(path.join(__dirname, '../py/parseJSONobject.py'), options, (err, res) => {
+      if (err) throw err
+      console.log('parserJSONObject', res)
+      event.returnValue = res[0]
+    })
+  })
+
+  ipcMain.on('python-print', (event, value) => {
+    let options = {
+      mode: 'text',
+      args: [value]
+    };
+  
+    PythonShell.run(path.join(__dirname, '../py/calc.py'), options, function (err, results) {
+      if (err) throw err;
+      console.log('results: ', results);
+      event.returnValue = results[0]
+    });
+  })
+
   setTitle()
-  pythonPrint()
-
-  ipcMain.on('test-channel', (event, title) => {
-    console.log('test channel', title)
-    // const webContents = event.sender
-    // const win = BrowserWindow.fromWebContents(webContents)
-    // win.testChannel(title)
-  })
-
-  ipcMain.on('test-channel2', (event, title) => {
-    console.log('test channel 2', title)
-    // const webContents = event.sender
-    // const win = BrowserWindow.fromWebContents(webContents)
-    // win.testChannel(title)
-  })
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);

@@ -14,8 +14,10 @@ export default() => {
         //   console.log('finished');
         // })
         const webContents = event.sender
-        console.log(webContents)
+        // console.log(webContents)
         const win = BrowserWindow.fromWebContents(webContents)
+        win.webContents.send('asynchronous-message', {'SAVED': 'File Saved'});
+
         win.setTitle(title)
       })
 }
