@@ -6,6 +6,7 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
+    "initialize": "python3 -m venv venv-electron-react-python && source ./venv-electron-react-python/bin/activate && pip3 install -r ./requirements.txt",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
