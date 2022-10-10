@@ -4,7 +4,7 @@ import json
 def txt_return(str):
     obj = json.loads(str)
     obj['sum'] = obj['a'] + obj['b']
-    # obj = json.dumps(obj, separators=(',', ':'))
+
     return json.dumps(obj)
 
 

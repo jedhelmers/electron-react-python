@@ -33,7 +33,7 @@ const Main = () => {
             <input className='p-10' id="title" value={value} onChange={e => setValue(e.target.value)}/>
             <div className='fr-sb'>
                 <button className='p-10 mt-10' type="button" onClick={click}>Set</button>
-                <button className='p-10 mt-10' type="button" onClick={clickParseJSONObject}>Set</button>
+                <button className='p-10 mt-10' type="button" onClick={clickParseJSONObject}>JSON</button>
             </div>
             <div className='fr-sb'>
                 <h1>Result: {label}</h1>
