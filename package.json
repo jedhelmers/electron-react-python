@@ -6,7 +6,10 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
-    "initialize": "python3 -m venv venv-electron-react-python && source ./venv-electron-react-python/bin/activate && pip3 install -r ./requirements.txt",
+    "initialize": "python3 -m venv venv-electron-react-python",
+    "initialize:conda": "conda create --name venv-electron-react-python -y",
+    "env:activate": "source ./venv-electron-react-python/bin/activate",
+    "env:activate:conda": "conda activate venv-electron-react-python",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
